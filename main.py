@@ -32,22 +32,21 @@ def main():
                 with_customs=False,
                 log=log_stderr,
             )
+            log_stdout.print("Torrent client initialised: %s", (client,))
             with open('nyaa.yaml', 'r') as f:
                 rss_list = yaml.load(f)
             dest_prefix = rss_list['dest_prefix']
             for feed_conf in rss_list['feeds']:
                 rss_url = feed_conf['url']
                 dest_path = dest_prefix + feed_conf['anime_name']
-                log_stdout.print("Torrent client initialised: %s", (client,))
-                hashes = client.get_hashes()
                 feed = feedparser.parse(rss_url)
-                log_stdout.print("Loaded %s feed", feed['feed']['title'])
+                log_stdout.print("Loaded %s feed for %s", ( feed['feed']['title'], feed_conf['anime_name'] ))
                 os.makedirs(dest_path, exist_ok=True)
                 for entry in feed['entries']:
                     torrent_url = entry['link']
                     t = tfile.Torrent(data=read_url(build_opener(), torrent_url), path='/dev/null')
                     log_stdout.print("Checking %s", entry['title'])
-                    if not t.get_hash() in hashes:
+                    if not t.get_hash() in client.get_hashes():
                         client.load_torrent(t, dest_path)
                         log_stdout.print("Torrent loaded to %s", dest_path)
 
