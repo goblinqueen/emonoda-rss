@@ -1,0 +1,4 @@
+dest_prefix: "/media/Elements/Anime/"
+feeds:
+ - url: "http://www.nyaa.se/?page=rss&term=%5BHorribleSubs%5D+World+Trigger+720"
+   anime_name: "World Trigger"
