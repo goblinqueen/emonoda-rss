@@ -51,7 +51,7 @@ def main():
                     if not t.get_hash() in client.get_hashes():
                         client.load_torrent(t, dest_path)
                         log_stdout.print("Torrent loaded to %s", dest_path)
-#                        confetti.notify(feed_conf['anime_name'], entry['title_detail']['value'])
+#                       confetti.notify(feed_conf['anime_name'], entry['title_detail']['value'])
 
 
 if __name__ == "__main__":
